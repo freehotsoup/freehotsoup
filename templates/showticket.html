@@ -4,7 +4,7 @@
 
     {% if ticket and ticket.status == "new" %}
     <div class="col-md-6">
-        <h2>{{ticket.ticket_type|title}} Details <span class="label label-success">{{ ticket.status }}</span></h2>
+        <h2>{{ticket.ticket_type|title}} Details <span class="label label-success">{{ ticket.status|upper }}</span></h2>
         <br>
         <div class="form-group row">
             <label for="item" class="col-sm-3 col-form-label">Item *</label>
