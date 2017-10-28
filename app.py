@@ -162,7 +162,10 @@ def addticket(item='', deliverer='',
 
     db.session.add(ticket)
     db.session.commit()
-    return render_template('show.html', ticket=ticket)
+    # return render_template('show.html', ticket=ticket)
+    
+    ticket_id = str(ticket.tid)
+    return redirect("view?tid=" + ticket_id)
 
 
 @app.route('/point_2_geojson', methods=['GET', 'POST'])
