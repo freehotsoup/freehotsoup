@@ -363,7 +363,7 @@ def status():
 
     # view ticket
     if ticket_id and not(ticket_status):
-        return render_template("show_ticket.html", title="View Ticket",
+        return render_template("showticket.html", title="View Ticket",
                                ticket=ticket)
 
     # display add delivery instructions form
