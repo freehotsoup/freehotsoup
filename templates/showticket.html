@@ -38,7 +38,7 @@
         <div class="form-group row">
             <label for="comments" class="col-sm-3 col-form-label">Comments</label>
             <div class="col-sm-9">
-                <textarea class="form-control" type="text" id="comments" name="comments" readonly required value="{{ticket.comments}}"></textarea>
+                <textarea class="form-control" type="text" id="comments" name="comments" readonly value="{{ticket.comments}}">{{ticket.comments}}</textarea>
             </div>
         </div>
         <form action="/view?tid={{ ticket.tid }}&status={{ ticket.status }}&action=update" method="POST">

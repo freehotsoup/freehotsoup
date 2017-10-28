@@ -2,49 +2,50 @@
 {% block content %}
 <div class="container">
 
-    {% if ticket %}
-    <div class="col-md-6">
-        <h2>{{ticket.ticket_type|title}} Details <span class="label label-success">{{ ticket.status|upper }}</span></h2>
-        <br>
-        <div class="form-group row">
-            <label for="item" class="col-sm-3 col-form-label">Item *</label>
-            <div class="col-sm-9">
-                <input class="form-control" type="text" id="item" name="item" readonly required value="{{ticket.item}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="gyfter" class="col-sm-3 col-form-label">Name *</label>
-            <div class="col-sm-9">
-                <input class="form-control" type="text" id="gyfter" name="gyfter" readonly required value="{{ticket.gyfter}}">
-            </div>
-        </div>
+    <form action="/view?tid={{ ticket.tid }}&status=ready" method="POST">
 
-        {% if ticket.ticket_type == "donate" %} 
+        {% if ticket %}
+        <div class="col-md-6">
+            <h2>{{ticket.ticket_type|title}} Details <span class="label label-success">{{ ticket.status|upper }}</span></h2>
+            <br>
             <div class="form-group row">
-                <label for="delivery_options" class="col-sm-3 col-form-label">Delivery Options</label>
+                <label for="item" class="col-sm-3 col-form-label">Item *</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="needs picked up">
+                    <input class="form-control" type="text" id="item" name="item" readonly required value="{{ticket.item}}">
                 </div>
             </div>
-        {% else %}
             <div class="form-group row">
-                <label for="pickup_options" class="col-sm-3 col-form-label">Pickup Options</label>
+                <label for="gyfter" class="col-sm-3 col-form-label">Name *</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="needs delivered">
+                    <input class="form-control" type="text" id="gyfter" name="gyfter" readonly required value="{{ticket.gyfter}}">
                 </div>
             </div>
-        {% endif %}
 
-        <div class="form-group row">
-            <label for="comments" class="col-sm-3 col-form-label">Comments</label>
-            <div class="col-sm-9">
-                <textarea class="form-control" type="text" id="comments" name="comments" value="{{ticket.comments}}"></textarea>
+            {% if ticket.ticket_type == "donate" %} 
+                <div class="form-group row">
+                    <label for="delivery_options" class="col-sm-3 col-form-label">Delivery Options</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="needs picked up">
+                    </div>
+                </div>
+            {% else %}
+                <div class="form-group row">
+                    <label for="pickup_options" class="col-sm-3 col-form-label">Pickup Options</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="needs delivered">
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="form-group row">
+                <label for="comments" class="col-sm-3 col-form-label">Comments</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" type="text" id="comments" name="comments">{{ticket.comments}}</textarea>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <form action="/view?tid={{ ticket.tid }}&status=ready" method="POST">
+        <div class="col-md-6">
             <h2>Delivery Instructions</h2>
             <br>
             <div class="form-group row">
@@ -79,9 +80,8 @@
             <a href="/view?tid={{ ticket.tid }}">
                 <div class="btn btn-lg btn-danger" style="width:24%">cancel</div>
             </a>
-        </form>
-    </div>
+        </div>
     {% endif %}
-
+    </form>
 </div>
 {% endblock %}
