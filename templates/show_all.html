@@ -93,7 +93,7 @@
                       </form>
                       <form action="/delete_ticket" method="POST" class='nmt'>
                         <input type="hidden" name="tid" value="{{ticket.tid}}">
-                        <input type="submit" value="Delete" class='btn btn-danger btn-xs'>
+                        <input type="submit" value="Delete" class='btn btn-default btn-xs'>
                       </form>
                     </td>
                     {% if ticket.status == "new" %}
@@ -101,7 +101,7 @@
                     {% elif ticket.status == "ready" %}
                         <td><span class="label label-warning">{{ ticket.status }}</span></td>
                     {% elif ticket.status == "closed" %}
-                        <td><span class="label label-default">{{ ticket.status }}</span></td>
+                        <td><span class="label label-danger">{{ ticket.status }}</span></td>
                     {% endif %}
 
                     <td>{{ticket.ticket_type}}</td>
