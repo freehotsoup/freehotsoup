@@ -388,18 +388,19 @@ def status():
         db.session.commit()
         return redirect("view?tid=" + ticket_id)
 
-    # display add delivery instructions form
+    # display add delivery or pickup form
     if ticket_status == "ready" and ticket_action:
-        return render_template("status_closed.html", title="Edit Ticket",
-                               ticket=ticket)
+        return render_template("status_closed.html", title="Edit Ticket", ticket=ticket)
 
-    # change status from in-progress to closed
+    # change status from ready to closed
     if ticket_status == "closed":
 
         # # retrieve form data
+        comments = request.form['comments']
         closed_details = request.form['closed_details']
 
         # # update ticket in db
+        ticket.comments = comments
         ticket.closed_details = closed_details
         ticket.status = ticket_status
         db.session.commit()
