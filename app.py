@@ -376,14 +376,12 @@ def status():
 
         # retrieve form data
         deliverer = request.form['deliverer']
-        requester = request.form['requester']
         dropoff_address = request.form['dropoff_address']
         dropoff_time = request.form['dropoff_time']
         dropoff_date = request.form['dropoff_date']
 
         # update ticket in db
         ticket.deliverer = deliverer
-        ticket.requester = requester
         ticket.dropoff_address = dropoff_address
         ticket.dropoff_time = dropoff_time
         ticket.dropoff_date = dropoff_date
