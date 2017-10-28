@@ -3,12 +3,9 @@
 <div class="container">
 
     {% if ticket and ticket.status == "new" %}
-    <h1>
-        <span class="label label-success">status: {{ ticket.status }}</span>
-    </h1>
-
     <div class="col-md-6">
-        <h2>Gyfter Details</h2>
+        <h2>{{ticket.ticket_type|title}} Details <span class="label label-success">{{ ticket.status }}</span></h2>
+        <br>
         <div class="form-group row">
             <label for="item" class="col-sm-3 col-form-label">Item *</label>
             <div class="col-sm-9">
@@ -22,25 +19,28 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="pickup_address" class="col-sm-3 col-form-label">Pickup Address</label>
+            <label for="delivery" class="col-sm-3 col-form-label">Delivery Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="pickup_address" name="pickup_address" readonly value="{{ticket.pickup_address}}">
+                <input class="form-control" type="text" id="delivery" name="delivery" readonly value="needs picked up">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="pickup_date" class="col-sm-3 col-form-label">Pickup Date</label>
+<!--         <div class="form-group row">
+            <label for="delivery" class="col-sm-3 col-form-label">Delivery Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="date" id="pickup_date" name="pickup_date" readonly value="{{ticket.pickup_date}}">
+                <select class="form-control" id="delivery" name="delivery">
+                    <option value="1">Needs picked up</option>
+                    <option value="2">Can drop off</option> 
+                </select>
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
-            <label for="pickup_time" class="col-sm-3 col-form-label">Pickup Time</label>
+            <label for="comments" class="col-sm-3 col-form-label">Comments *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="time" id="pickup_time" name="pickup_time" readonly value="{{ticket.pickup_time}}">
+                <textarea class="form-control" type="text" id="comments" name="comments" required value="{{ticket.comments}}"></textarea>
             </div>
         </div>
         <form action="/view?tid={{ ticket.tid }}&status={{ ticket.status }}&action=update" method="POST">
-            <button type="submit" class="btn btn-primary">Change Status</button>
+            <button type="submit" class="btn btn-lg btn-block btn-primary">Change Status</button>
         </form>
     </div>
     {% endif %}
