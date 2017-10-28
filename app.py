@@ -357,19 +357,16 @@ def status():
     ticket_id = request.args.get('tid')
     ticket_status = request.args.get('status')
     ticket_action = request.args.get('action')
-    print("id: ", ticket_id, "status: ", ticket_status, "action: ",
-          ticket_action)
+    print("id: ", ticket_id, "status: ", ticket_status, "action: ", ticket_action)
     ticket = Ticket.query.get(ticket_id)
 
     # view ticket
     if ticket_id and not(ticket_status):
-        return render_template("showticket.html", title="View Ticket",
-                               ticket=ticket)
+        return render_template("showticket.html", title="View Ticket", ticket=ticket)
 
     # display add delivery instructions form
     if ticket_status == "new" and ticket_action:
-        return render_template("status_ready.html", title="Edit Ticket",
-                               ticket=ticket)
+        return render_template("status_ready.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to ready
     if ticket_status == "ready" and not(ticket_action):
@@ -379,12 +376,14 @@ def status():
         dropoff_address = request.form['dropoff_address']
         dropoff_time = request.form['dropoff_time']
         dropoff_date = request.form['dropoff_date']
+        comments = request.form['comments']
 
         # update ticket in db
         ticket.deliverer = deliverer
         ticket.dropoff_address = dropoff_address
         ticket.dropoff_time = dropoff_time
         ticket.dropoff_date = dropoff_date
+        ticket.comments = comments
         ticket.status = ticket_status
         db.session.commit()
         return redirect("view?tid=" + ticket_id)
