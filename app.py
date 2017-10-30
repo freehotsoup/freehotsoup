@@ -1,9 +1,34 @@
 """Main gyfted logic and point that is used to start the app."""
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, Response
 from models import app, db, User, Ticket, Place
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib import sqla
 from forms import AddressForm
+from flask_basicauth import BasicAuth
+from werkzeug.exceptions import HTTPException
+
+basic_auth = BasicAuth(app)
+app.config['BASIC_AUTH_USERNAME'] = 'freehotsoup'
+app.config['BASIC_AUTH_PASSWORD'] = 'SoupProvides123'
+
+class ModelView(sqla.ModelView):
+    def is_accessible(self):
+        if not basic_auth.authenticate():
+            raise AuthException('Not authenticated.')
+        else:
+            return True
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(basic_auth.challenge())
+
+class AuthException(HTTPException):
+    def __init__(self, message):
+        super().__init__(message, Response(
+            "You could not be authenticated. Please refresh the page.", 401,
+            {'WWW-Authenticate': 'Basic realm="Login Required"'}
+        ))
+
 
 
 @app.route("/newrequest", methods=['POST', 'GET'])
