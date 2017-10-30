@@ -7,14 +7,24 @@
 1. Mkdir Gyfted
 2. CD into Gyfted
 3. git init
-4. git remote add origin https://github.com/jasonleonhard/gyfted.git
-5.git pull origin master
+4. git remote add origin https://github.com/freehotsoup/gyfted.git
+5. git pull origin master
 6. source activate flask-env
 7. Download Postgres 10, installed with default options
 http://postgresapp.com/
 8. source activate flask-env
 9. pip install -r requirements.txt
 10. first run export DATABASE_URL=“postgresql://localhost/gyfted_dev”, afterwards DATABASE_URL=“postgresql://localhost/gyfted_dev”
+
+### Setup in Windows/MySQL
+1. Install MAMP for Windows
+2. Open MAMP and click on Start servers
+3. Open start page and go to Tools->phpMyAdmin
+4. Create a new user and database with name gifted_dev and password gifted_password
+5. In models.py, replace the database url to app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gyfted_dev:gifted_password@localhost:8889/gyfted_dev'
+6. In terminal, run
+   python db_create.py
+   python seed.py
 
 ### Brief
 We connect people needing items

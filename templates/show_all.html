@@ -38,6 +38,7 @@
             <tr class='theme_colors'>
                 <th>id</th>
                 <th>status</th>
+                <th>ticket_type</th>
 
                 <th>item</th>
                 <th>deliverer</th>
@@ -51,13 +52,15 @@
                 <th>dropoff address</th>
                 <th>dropoff time</th>
                 <th>dropoff date</th>
-                <th>details</th>
+                <th>comments</th>
+                <th>closed details</th>
             </tr>
         </thead>
         <tfoot>
             <tr class='theme_colors'>
                 <th>id</th>
                 <th>status</th>
+                <th>ticket_type</th>
 
                 <th>item</th>
                 <th>deliverer</th>
@@ -71,7 +74,8 @@
                 <th>dropoff address</th>
                 <th>dropoff time</th>
                 <th>dropoff date</th>
-                <th>details</th>
+                <th>comments</th>
+                <th>closed details</th>
               </tr>
         </tfoot>
         <tbody>
@@ -80,15 +84,16 @@
                  <tr class='theme_colors'>
                     <td>
                       <div class="float-right">
-                        <span class="label label-default">{{ticket.tid}}</span>
+                        <span>{{ticket.tid}}</span>
                       </div>
-                      <form action="/map2/{{ticket.tid}}" method="POST" class='nmb'>
+                      <!-- <form action="/map2/{{ticket.tid}}" method="POST" class='nmb'> -->
+                      <form action="/view?tid={{ticket.tid}}" method="POST" class='nmb'>
                         <input type="hidden" name="tid" value="{{ticket.tid}}">
                         <input type="submit" value="show" class='btn btn-primary btn-xs'>
                       </form>
                       <form action="/delete_ticket" method="POST" class='nmt'>
                         <input type="hidden" name="tid" value="{{ticket.tid}}">
-                        <input type="submit" value="Delete" class='btn btn-danger btn-xs'>
+                        <input type="submit" value="Delete" class='btn btn-default btn-xs'>
                       </form>
                     </td>
                     {% if ticket.status == "new" %}
@@ -96,9 +101,10 @@
                     {% elif ticket.status == "ready" %}
                         <td><span class="label label-warning">{{ ticket.status }}</span></td>
                     {% elif ticket.status == "closed" %}
-                        <td><span class="label label-default">{{ ticket.status }}</span></td>
+                        <td><span class="label label-danger">{{ ticket.status }}</span></td>
                     {% endif %}
 
+                    <td>{{ticket.ticket_type}}</td>
                     <td>{{ticket.item}}</td>
                     <td>{{ticket.deliverer}}</td>
 
@@ -111,6 +117,7 @@
                     <td>{{ticket.dropoff_address}}</td>
                     <td>{{ticket.dropoff_time}}</td>
                     <td>{{ticket.dropoff_date}}</td>
+                    <td>{{ticket.comments}}</td>
                     <td>{{ticket.closed_details}}</td>
                  </tr>
               {% endfor %}

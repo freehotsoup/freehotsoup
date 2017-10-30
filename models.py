@@ -53,6 +53,7 @@ class Ticket(db.Model):
     created = db.Column(db.DateTime)
     hidden = db.Column(db.Boolean)
     status = db.Column(db.String(100))
+    closed_details = db.Column(db.Text)
 
     def __init__(self, item, deliverer, gyfter, pickup_address,gyfter_phone,
                  pickup_time, pickup_date,delivery_options, requester,
@@ -79,11 +80,12 @@ class Ticket(db.Model):
         self.ticket_type = ticket_type
         self.created = datetime.utcnow()
         self.hidden = False
-        self.status = 'ready'
+        self.status = 'new'
+        self.closed_details = ''
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.status, self.comments, self.ticket_type)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.status, self.comments, self.ticket_type, self.closed_details)
 
 
 class Place(object):
