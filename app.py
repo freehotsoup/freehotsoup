@@ -3,9 +3,6 @@ from flask import render_template, request, redirect
 from models import app, db, User, Ticket, Place
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-# import geocoder
-# import geopy.distance
-# from geojson import Point
 from forms import AddressForm
 
 

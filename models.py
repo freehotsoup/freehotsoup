@@ -3,7 +3,6 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-# import geocoder
 import urllib.request
 from urllib.parse import urljoin
 import json
