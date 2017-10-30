@@ -36,37 +36,41 @@ class Ticket(db.Model):
 
     gyfter = db.Column(db.String(100))
     pickup_address = db.Column(db.String(100))
+    gyfter_phone = db.Column(db.String(50))
     pickup_time = db.Column(db.String(100))
     pickup_date = db.Column(db.String(100))
     delivery_options =  db.Column(db.String(100))
-
+    
     requester = db.Column(db.String(100))
     dropoff_address = db.Column(db.String(100))
+    requester_phone = db.Column(db.String(50))
     dropoff_time = db.Column(db.String(100))
     dropoff_date = db.Column(db.String(100))
     pickup_options =  db.Column(db.String(100))
-
+    
     comments = db.Column(db.String(300))
     ticket_type = db.Column(db.String(50))
     created = db.Column(db.DateTime)
     hidden = db.Column(db.Boolean)
     status = db.Column(db.String(100))
 
-    def __init__(self, item, deliverer, gyfter, pickup_address,
+    def __init__(self, item, deliverer, gyfter, pickup_address,gyfter_phone,
                  pickup_time, pickup_date,delivery_options, requester,
-                 dropoff_address, dropoff_time, dropoff_date,pickup_options, comments, ticket_type):
+                 dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, comments, ticket_type):
         """Ticket lifecycle: requester, deliverer, gyfter."""
         self.item = item
         self.deliverer = deliverer
 
         self.gyfter = gyfter
         self.pickup_address = pickup_address
+        self.gyfter_phone = gyfter_phone
         self.pickup_time = pickup_time
         self.pickup_date = pickup_date
         self.delivery_options = delivery_options
 
         self.requester = requester
         self.dropoff_address = dropoff_address
+        self.requester_phone = requester_phone
         self.dropoff_time = dropoff_time
         self.dropoff_date = dropoff_date
         self.pickup_options = pickup_options
@@ -79,7 +83,7 @@ class Ticket(db.Model):
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.status, self.comments, self.ticket_type)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.status, self.comments, self.ticket_type)
 
 
 class Place(object):
