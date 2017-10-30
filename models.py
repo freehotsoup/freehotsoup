@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import geocoder
+# import geocoder
 import urllib.request
 from urllib.parse import urljoin
 import json
@@ -11,7 +11,7 @@ import json
 
 app = Flask(__name__)
 app.secret_key = "development-key"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/gyfted_dev'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.debug = True
@@ -48,9 +48,9 @@ class Ticket(db.Model):
     hidden = db.Column(db.Boolean)
     status = db.Column(db.String(100))
 
-    def __init__(self, item, deliverer, gyfter, pickup_address,
-                 pickup_time, pickup_date, requester,
-                 dropoff_address, dropoff_time, dropoff_date):
+    def __init__(self, item = "", deliverer = "", gyfter = "", pickup_address = "", pickup_time ="",
+                 pickup_date = "", requester = "", dropoff_address = "", dropoff_time = "",
+                 dropoff_date = ""):
         """Ticket lifecycle: requester, deliverer, gyfter."""
         self.item = item
         self.deliverer = deliverer
@@ -126,3 +126,16 @@ class Place(object):
 
         places.append(d)
         return places
+
+
+class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(25), unique=True)
+    password = db.Column(db.String(120))
+    email = db.Column(db.String(120))
+
+    def __init__(self, username = "", password = "", email = ""):
+        self.username = username
+        self.password = password
+        self.email = email
