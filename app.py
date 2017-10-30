@@ -1,9 +1,8 @@
 """Main gyfted logic and point that is used to start the app."""
 from flask import render_template, request, redirect
-from models import app, db, Ticket, Place
-import geocoder
-import geopy.distance
-from geojson import Point
+from models import app, db, User, Ticket, Place
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from forms import AddressForm
 
 
@@ -441,6 +440,9 @@ def add_header(response):
 
 
 if __name__ == "__main__":
+    admin = Admin(app, name='Gyfted', template_mode='bootstrap3')
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Ticket, db.session))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)
     app.debug = True
