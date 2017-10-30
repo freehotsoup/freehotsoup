@@ -19,6 +19,7 @@ function showRequestForm() {
     document.getElementById("datelabel").textContent="Pickup Date";
 }
 
+// initialize current time
 $(function(){  
   $('input[type="time"][value="now"]').each(function(){    
     var d = new Date(),        
