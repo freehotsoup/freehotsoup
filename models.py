@@ -53,8 +53,8 @@ class Ticket(db.Model):
 
     def __init__(self, item = "", deliverer = "", gyfter = "", pickup_address = "", pickup_time ="",
                  pickup_date = "", requester = "", dropoff_address = "", dropoff_time = "",
-                 dropoff_date = ""):
-                 
+                 dropoff_date = "", comments = "", ticket_type = ""):
+
         """Ticket lifecycle: requester, deliverer, gyfter."""
         self.item = item
         self.deliverer = deliverer
