@@ -123,9 +123,9 @@ def newticket(item='', deliverer='',
 
 @app.route("/addticket", methods=['POST', 'GET'])
 def addticket(item='', deliverer='',
-              gyfter='', pickup_address='', pickup_time='', pickup_date='',
-              requester='', dropoff_address='', dropoff_time='',
-              dropoff_date='',comments='',ticket_type = ''):
+              gyfter='', pickup_address='',gyfter_phone='', pickup_time='', pickup_date='',delivery_options='',
+              requester='', dropoff_address='',requester_phone='', dropoff_time='',
+              dropoff_date='',pickup_options='',comments='',ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
         return render_template('addticket.html')  # , title=title)
@@ -136,11 +136,13 @@ def addticket(item='', deliverer='',
             gyfter = request.form['name']
             # email = request.form['contactemail']
             pickup_address = request.form['location']
+            gyfter_phone = request.form['phone']
             pickup_time = request.form['time']
             pickup_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
-            if request.form['delivery'] == '2':
+            delivery_options = request.form['delivery']
+            if request.form['delivery'] == 'Can drop off':
                 deliverer = gyfter
 
         elif request.form['formtype'] == "request":
@@ -149,16 +151,18 @@ def addticket(item='', deliverer='',
             requester = request.form['name']
             # email = request.form['contactemail']
             dropoff_address = request.form['location']
+            requester_phone = request.form['phone']
             dropoff_time = request.form['time']
             dropoff_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
-            if request.form['pickup'] == '2':
+            pickup_options = request.form['pickup']
+            if request.form['pickup'] == 'Can pick up':
                 deliverer = requester
 
-    ticket = Ticket(item, deliverer, gyfter, pickup_address,
-                    pickup_time, pickup_date, requester,
-                    dropoff_address, dropoff_time, dropoff_date, comments, ticket_type)
+    ticket = Ticket(item, deliverer, gyfter, pickup_address,gyfter_phone,
+                    pickup_time, pickup_date,delivery_options, requester,
+                    dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, comments, ticket_type)
 
     db.session.add(ticket)
     db.session.commit()
