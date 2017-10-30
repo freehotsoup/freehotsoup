@@ -59,5 +59,11 @@
         </div>
     </nav>
     {% block content %} {% endblock %}
+    <script type="text/javascript">
+        // auto-populate date
+        document.getElementById("expiration").valueAsDate = new Date()
+
+
+    </script>
 </body>
 </html>
