@@ -124,10 +124,10 @@ def newticket(item='', deliverer='',
 def addticket(item='', deliverer='',
               gyfter='', pickup_address='', pickup_time='', pickup_date='',
               requester='', dropoff_address='', dropoff_time='',
-              dropoff_date=''):
+              dropoff_date='',comments='',ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
-        return render_template('add_ticket.html')  # , title=title)
+        return render_template('addticket.html')  # , title=title)
     if request.method == 'POST':
         if request.form['formtype'] == "donate":
             print(request.form['formtype'])
@@ -137,6 +137,8 @@ def addticket(item='', deliverer='',
             pickup_address = request.form['location']
             pickup_time = request.form['time']
             pickup_date = request.form['expiration']
+            comments = request.form['comments']
+            ticket_type = request.form['formtype']
             if request.form['delivery'] == '2':
                 deliverer = gyfter
 
@@ -148,16 +150,21 @@ def addticket(item='', deliverer='',
             dropoff_address = request.form['location']
             dropoff_time = request.form['time']
             dropoff_date = request.form['expiration']
+            comments = request.form['comments']
+            ticket_type = request.form['formtype']
             if request.form['pickup'] == '2':
                 deliverer = requester
 
     ticket = Ticket(item, deliverer, gyfter, pickup_address,
                     pickup_time, pickup_date, requester,
-                    dropoff_address, dropoff_time, dropoff_date)
+                    dropoff_address, dropoff_time, dropoff_date, comments, ticket_type)
 
     db.session.add(ticket)
     db.session.commit()
-    return render_template('show.html', ticket=ticket)
+    # return render_template('show.html', ticket=ticket)
+    
+    ticket_id = str(ticket.tid)
+    return redirect("view?tid=" + ticket_id)
 
 
 @app.route('/point_2_geojson', methods=['GET', 'POST'])
@@ -349,52 +356,50 @@ def status():
     ticket_id = request.args.get('tid')
     ticket_status = request.args.get('status')
     ticket_action = request.args.get('action')
-    print("id: ", ticket_id, "status: ", ticket_status, "action: ",
-          ticket_action)
+    print("id: ", ticket_id, "status: ", ticket_status, "action: ", ticket_action)
     ticket = Ticket.query.get(ticket_id)
 
     # view ticket
     if ticket_id and not(ticket_status):
-        return render_template("show_ticket.html", title="View Ticket",
-                               ticket=ticket)
+        return render_template("showticket.html", title="View Ticket", ticket=ticket)
 
     # display add delivery instructions form
     if ticket_status == "new" and ticket_action:
-        return render_template("status_ready.html", title="Edit Ticket",
-                               ticket=ticket)
+        return render_template("status_ready.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to ready
     if ticket_status == "ready" and not(ticket_action):
 
         # retrieve form data
         deliverer = request.form['deliverer']
-        requester = request.form['requester']
         dropoff_address = request.form['dropoff_address']
         dropoff_time = request.form['dropoff_time']
         dropoff_date = request.form['dropoff_date']
+        comments = request.form['comments']
 
         # update ticket in db
         ticket.deliverer = deliverer
-        ticket.requester = requester
         ticket.dropoff_address = dropoff_address
         ticket.dropoff_time = dropoff_time
         ticket.dropoff_date = dropoff_date
+        ticket.comments = comments
         ticket.status = ticket_status
         db.session.commit()
         return redirect("view?tid=" + ticket_id)
 
-    # display add delivery instructions form
+    # display add delivery or pickup form
     if ticket_status == "ready" and ticket_action:
-        return render_template("status_closed.html", title="Edit Ticket",
-                               ticket=ticket)
+        return render_template("status_closed.html", title="Edit Ticket", ticket=ticket)
 
-    # change status from in-progress to closed
+    # change status from ready to closed
     if ticket_status == "closed":
 
         # # retrieve form data
+        comments = request.form['comments']
         closed_details = request.form['closed_details']
 
         # # update ticket in db
+        ticket.comments = comments
         ticket.closed_details = closed_details
         ticket.status = ticket_status
         db.session.commit()
