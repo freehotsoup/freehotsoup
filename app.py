@@ -1,4 +1,4 @@
-"""Main gyfted logic and point that is used to start the app."""
+"""Main Free Hot Soup logic and point that is used to start the app."""
 from flask import render_template, request, redirect, Response
 from models import app, db, User, Ticket, Place
 from flask_admin import Admin
@@ -363,14 +363,6 @@ def all_offers():
         return render_template('all_offers.html', all_tickets=all_tickets,
                                title="Offerings", search_term=search_term)
 
-
-@app.route('/clients/')
-@app.route('/clients')
-def clients():
-    """Client who use the Gyfted Platform."""
-    return render_template('clients.html')
-
-
 @app.route("/show_all", methods=['GET', 'POST'])
 def show_all():
     """Stubbed out show and list users view."""
@@ -465,7 +457,7 @@ def add_header(response):
 
 
 if __name__ == "__main__":
-    admin = Admin(app, name='Gyfted', template_mode='bootstrap3')
+    admin = Admin(app, name='Free Hot Soup', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ticket, db.session))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
