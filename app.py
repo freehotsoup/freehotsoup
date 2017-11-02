@@ -152,7 +152,7 @@ def addticket(item='', deliverer='',
               dropoff_date='',pickup_options='',comments='',ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
-        return render_template('addticket.html')  # , title=title)
+        return render_template('addticket.html', title="New Ticket")  # , title=title)
     if request.method == 'POST':
         if request.form['formtype'] == "donate":
             print(request.form['formtype'])
@@ -376,15 +376,14 @@ def all_offers():
 @app.route('/clients')
 def clients():
     """Client who use the Gyfted Platform."""
-    return render_template('clients.html')
+    return render_template('clients.html', title="Clients")
 
 
 @app.route("/show_all", methods=['GET', 'POST'])
 def show_all():
     """Stubbed out show and list users view."""
     all_tickets = Ticket.query.all()
-    return render_template('show_all.html', all_tickets=all_tickets,
-                           title="Tickets")
+    return render_template('show_all.html', all_tickets=all_tickets, title="Tickets")
 
 
 @app.route("/view", methods=['GET', 'POST'])
