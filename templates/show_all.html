@@ -1,21 +1,21 @@
 <!-- jQuery library req for bootstrap-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
 <!-- bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" /> -->
 
 <!-- datatables styling for pagination -->
 <!-- optional styling -->
-<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<!-- <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" /> -->
 
 <!-- datatables script -->
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
-</script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js">
-</script>
+<!-- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
+</script> -->
+<!-- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js">
+</script> -->
 
-<style type="text/css">
+<!-- <style type="text/css">
     .dataTables_empty {
         background: rgba(140, 0, 193, 1) !important;
         color: #ffffff !important;
@@ -30,25 +30,37 @@
     .float-right {
         float: right;
     }
-</style>
+</style> -->
+
+
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script> -->
+{% extends "template.html" %}
+{% block content %}
 
 <div class="container">
-    <table id="example" class="table table-hover table-bordered table-condensed">
+    <table id="example" class="table table-responsive table-bordered table-striped">
         <thead>
             <tr class='theme_colors'>
                 <th>id</th>
                 <th>status</th>
-                <th>ticket_type</th>
+                <th>type</th>
 
                 <th>item</th>
                 <th>deliverer</th>
 
                 <th>gyfter</th>
+                <th>delivery options</th>
                 <th>pickup address</th>
                 <th>pickup time</th>
                 <th>pickup date</th>
 
                 <th>requester</th>
+                <th>pickup options</th>
                 <th>dropoff address</th>
                 <th>dropoff time</th>
                 <th>dropoff date</th>
@@ -56,7 +68,7 @@
                 <th>closed details</th>
             </tr>
         </thead>
-        <tfoot>
+<!--         <tfoot>
             <tr class='theme_colors'>
                 <th>id</th>
                 <th>status</th>
@@ -77,13 +89,13 @@
                 <th>comments</th>
                 <th>closed details</th>
               </tr>
-        </tfoot>
+        </tfoot> -->
         <tbody>
           {% if all_tickets %}
               {% for ticket in all_tickets if ticket.hidden != True %}
                  <tr class='theme_colors'>
                     <td>
-                      <div class="float-right">
+                      <div>
                         <span>{{ticket.tid}}</span>
                       </div>
                       <!-- <form action="/map2/{{ticket.tid}}" method="POST" class='nmb'> -->
@@ -109,11 +121,13 @@
                     <td>{{ticket.deliverer}}</td>
 
                     <td>{{ticket.gyfter}}</td>
+                    <td>{{ticket.delivery_options}}</td>
                     <td>{{ticket.pickup_address}}</td>
                     <td>{{ticket.pickup_time}}</td>
                     <td>{{ticket.pickup_date}}</td>
 
                     <td>{{ticket.requester}}</td>
+                    <td>{{ticket.pickup_options}}</td>
                     <td>{{ticket.dropoff_address}}</td>
                     <td>{{ticket.dropoff_time}}</td>
                     <td>{{ticket.dropoff_date}}</td>
@@ -126,11 +140,4 @@
     </table>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
-{% extends "template.html" %}
-{% block content %}
 {% endblock %}
