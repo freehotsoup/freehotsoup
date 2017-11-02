@@ -51,10 +51,12 @@
                 <th>type</th>
 
                 <th>item</th>
-                <th>deliverer</th>
+                
 
-                <th>gyfter</th>
-                <th>delivery options</th>
+                <th>name</th>
+                <th>deliverer</th>
+                <th>address</th>
+               <!-- <th>delivery options</th>
                 <th>pickup address</th>
                 <th>pickup time</th>
                 <th>pickup date</th>
@@ -65,7 +67,7 @@
                 <th>dropoff time</th>
                 <th>dropoff date</th>
                 <th>comments</th>
-                <th>closed details</th>
+                <th>closed details</th>-->
             </tr>
         </thead>
 <!--         <tfoot>
@@ -118,10 +120,17 @@
 
                     <td>{{ticket.ticket_type}}</td>
                     <td>{{ticket.item}}</td>
-                    <td>{{ticket.deliverer}}</td>
-
-                    <td>{{ticket.gyfter}}</td>
-                    <td>{{ticket.delivery_options}}</td>
+                    
+                    {% if ticket.ticket_type == "donate" %}
+                        <td>{{ticket.gyfter}}</td>
+                        <td>{{ticket.deliverer}}</td>
+                        <td>{{ticket.pickup_address}}</td>
+                    {% elif ticket.ticket_type == "request" %} 
+                        <td>{{ticket.requester}}</td>
+                        <td>{{ticket.deliverer}}</td>
+                        <td>{{ticket.dropoff_address}}</td>  
+                    {% endif %} 
+                    <!--<td>{{ticket.delivery_options}}</td>
                     <td>{{ticket.pickup_address}}</td>
                     <td>{{ticket.pickup_time}}</td>
                     <td>{{ticket.pickup_date}}</td>
@@ -133,7 +142,7 @@
                     <td>{{ticket.dropoff_date}}</td>
                     <td>{{ticket.comments}}</td>
                     <td>{{ticket.closed_details}}</td>
-                 </tr>
+-->              </tr>
               {% endfor %}
           {% endif %}
         </tbody>
