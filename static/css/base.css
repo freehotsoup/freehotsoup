@@ -1,7 +1,8 @@
 body {
-    padding-top: 60px; // for bootstrap fixed-navbar
+    padding-top: 60px; 
+    /* for bootstrap fixed-navbar */
 }
-label {
+/*label {
     display: inline-block;
 
 }
@@ -66,15 +67,15 @@ td:hover {
 
 .space {
     padding-bottom: 0.1px;
-}
+}*/
 
 #formTitle {
     text-align: center;
 }
 
-.fl {
+/*.fl {
     float: right;
 }
 .fr {
     float: right;
-}
+}*/
