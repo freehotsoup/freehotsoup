@@ -7,6 +7,7 @@ from flask_admin.contrib import sqla
 from forms import AddressForm
 from flask_basicauth import BasicAuth
 from werkzeug.exceptions import HTTPException
+from flask.ext.admin.base import MenuLink, Admin, BaseView, expose
 
 basic_auth = BasicAuth(app)
 app.config['BASIC_AUTH_USERNAME'] = 'freehotsoup'
@@ -541,6 +542,7 @@ if __name__ == "__main__":
     admin = Admin(app, name='Gyfted', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ticket, db.session))
+    admin.add_link(MenuLink(name='Back to Main Site', url='/'))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)
     app.debug = True
