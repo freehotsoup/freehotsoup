@@ -94,7 +94,7 @@
         </tfoot> -->
         <tbody>
           {% if all_tickets %}
-              {% for ticket in all_tickets if ticket.hidden != True %}
+              {% for ticket in all_tickets if ticket.hidden != True and ticket.status != "closed"%}
                  <tr class='theme_colors'>
                     <td>
                       <div>
@@ -128,7 +128,7 @@
                     {% elif ticket.ticket_type == "request" %} 
                         <td>{{ticket.requester}}</td>
                         <td>{{ticket.deliverer}}</td>
-                        <td>{{ticket.dropoff_address}}</td>  
+                        <td></td>  
                     {% endif %} 
                     <!--<td>{{ticket.delivery_options}}</td>
                     <td>{{ticket.pickup_address}}</td>
