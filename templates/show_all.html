@@ -58,13 +58,15 @@
                 <th>pickup address</th>
                 <th>pickup time</th>
                 <th>pickup date</th>
+                <th>gyfter comments</th>
 
                 <th>requester</th>
                 <th>pickup options</th>
                 <th>dropoff address</th>
                 <th>dropoff time</th>
                 <th>dropoff date</th>
-                <th>comments</th>
+                <th>requester comments</th>
+
                 <th>closed details</th>
             </tr>
         </thead>
@@ -108,11 +110,12 @@
                         <input type="submit" value="Delete" class='btn btn-default btn-xs'>
                       </form>
                     </td>
+                    
                     {% if ticket.status == "new" %}
                         <td><span class="label label-success">{{ ticket.status }}</span></td>
                     {% elif ticket.status == "match found" %}
                         <td><span class="label label-info">{{ ticket.status }}</span></td>
-                    {% elif ticket.status == "in-progress" %}
+                    {% elif ticket.status == "in progress" %}
                         <td><span class="label label-warning">{{ ticket.status }}</span></td>
                     {% elif ticket.status == "closed" %}
                         <td><span class="label label-danger">{{ ticket.status }}</span></td>
@@ -127,13 +130,15 @@
                     <td>{{ticket.pickup_address}}</td>
                     <td>{{ticket.pickup_time}}</td>
                     <td>{{ticket.pickup_date}}</td>
+                    <td>{{ticket.gyfter_comments}}</td>
 
                     <td>{{ticket.requester}}</td>
                     <td>{{ticket.pickup_options}}</td>
                     <td>{{ticket.dropoff_address}}</td>
                     <td>{{ticket.dropoff_time}}</td>
                     <td>{{ticket.dropoff_date}}</td>
-                    <td>{{ticket.comments}}</td>
+                    <td>{{ticket.requester_comments}}</td>
+
                     <td>{{ticket.closed_details}}</td>
                  </tr>
               {% endfor %}

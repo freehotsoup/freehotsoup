@@ -147,9 +147,9 @@ class AuthException(HTTPException):
 
 @app.route("/addticket", methods=['POST', 'GET'])
 def addticket(item='', deliverer='',
-              gyfter='', pickup_address='',gyfter_phone='', pickup_time='', pickup_date='',delivery_options='',
+              gyfter='', pickup_address='',gyfter_phone='', pickup_time='', pickup_date='',delivery_options='',gyfter_comments='',
               requester='', dropoff_address='',requester_phone='', dropoff_time='',
-              dropoff_date='',pickup_options='',comments='',ticket_type = ''):
+              dropoff_date='',pickup_options='',requester_comments='',ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
         return render_template('addticket.html', title="New Ticket")  # , title=title)
@@ -163,7 +163,7 @@ def addticket(item='', deliverer='',
             gyfter_phone = request.form['phone']
             #pickup_time = request.form['time']
             #pickup_date = request.form['expiration']
-            comments = request.form['comments']
+            gyfter_comments = request.form['comments']
             ticket_type = request.form['formtype']
             delivery_options = request.form['delivery']
             if request.form['delivery'] == 'Can drop off':
@@ -182,7 +182,7 @@ def addticket(item='', deliverer='',
             requester_phone = request.form['phone']
             #dropoff_time = request.form['time']
             #dropoff_date = request.form['expiration']
-            comments = request.form['comments']
+            requester_comments = request.form['comments']
             ticket_type = request.form['formtype']
             pickup_options = request.form['pickup']
             if request.form['pickup'] == 'Can pick up':
@@ -193,8 +193,8 @@ def addticket(item='', deliverer='',
                 dropoff_date = ""
 
     ticket = Ticket(item, deliverer, gyfter, pickup_address,gyfter_phone,
-                    pickup_time, pickup_date,delivery_options, requester,
-                    dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, comments, ticket_type)
+                    pickup_time, pickup_date,delivery_options, gyfter_comments, requester,
+                    dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, requester_comments, ticket_type)
 
     db.session.add(ticket)
     db.session.commit()
@@ -405,21 +405,20 @@ def status():
 
     # change status from new to matchfound
     if ticket_status == "match found" and not ticket_action: 
-
         # retrieve form data
         if ticket.ticket_type == "donation":
             requester = request.form['requester']
             requester_phone = request.form['phone']
             pickup_address = request.form['location']
             pickup_options = request.form['pickup']
+            requester_comments = request.form['response_comments']
 
         else:
             gyfter = request.form['gyfter']
             gyfter_phone = request.form['phone']
             delivery_address = request.form['location']
             delivery_options = request.form['delivery']
-
-        comments = request.form['comments']
+            gyfter_comments = request.form['response_comments']
 
         # update ticket in db
         if ticket.ticket_type == "donation":
@@ -427,14 +426,15 @@ def status():
             ticket.requester_phone = requester_phone
             ticket.pickup_address = pickup_address
             ticket.pickup_options = pickup_options
+            ticket.requester_comments = requester_comments
 
         else:
             ticket.gyfter = gyfter
             ticket.gyfter_phone = gyfter_phone
             ticket.delivery_address = delivery_address
             ticket.delivery_options = delivery_options
+            ticket.gyfter_comments = gyfter_comments
 
-        ticket.comments = comments
         ticket.status = ticket_status
         db.session.commit()
         return redirect("view?tid=" + ticket_id)
