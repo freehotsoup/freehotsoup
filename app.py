@@ -1,4 +1,4 @@
-"""Main gyfted logic and point that is used to start the app."""
+"""Main Free Hot Soup logic and point that is used to start the app."""
 from flask import render_template, request, redirect, Response
 from models import app, db, User, Ticket, Place
 from flask_admin import Admin
@@ -161,8 +161,8 @@ def addticket(item='', deliverer='',
             # email = request.form['contactemail']
             pickup_address = request.form['location']
             gyfter_phone = request.form['phone']
-            pickup_time = request.form['time']
-            pickup_date = request.form['expiration']
+            #pickup_time = request.form['time']
+            #pickup_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
             delivery_options = request.form['delivery']
@@ -180,8 +180,8 @@ def addticket(item='', deliverer='',
             # email = request.form['contactemail']
             dropoff_address = request.form['location']
             requester_phone = request.form['phone']
-            dropoff_time = request.form['time']
-            dropoff_date = request.form['expiration']
+            #dropoff_time = request.form['time']
+            #dropoff_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
             pickup_options = request.form['pickup']
@@ -370,13 +370,13 @@ def all_offers():
         search_term = request.args.get('search_term')
         return render_template('all_offers.html', all_tickets=all_tickets,
                                title="Offerings", search_term=search_term)
+      
 
-
-@app.route('/clients/')
-@app.route('/clients')
-def clients():
-    """Client who use the Gyfted Platform."""
-    return render_template('clients.html', title="Clients")
+# @app.route('/clients/')
+# @app.route('/clients')
+# def clients():
+#     """Client who use the Gyfted Platform."""
+#     return render_template('clients.html', title="Clients")
 
 
 @app.route("/show_all", methods=['GET', 'POST'])
@@ -538,7 +538,7 @@ def add_header(response):
 
 
 if __name__ == "__main__":
-    admin = Admin(app, name='Gyfted', template_mode='bootstrap3')
+    admin = Admin(app, name='Free Hot Soup', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ticket, db.session))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
