@@ -152,7 +152,7 @@ def addticket(item='', deliverer='',
               dropoff_date='',pickup_options='',comments='',ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
-        return render_template('addticket.html')  # , title=title)
+        return render_template('addticket.html', title="New Ticket")  # , title=title)
     if request.method == 'POST':
         if request.form['formtype'] == "donate":
             print(request.form['formtype'])
@@ -161,13 +161,17 @@ def addticket(item='', deliverer='',
             # email = request.form['contactemail']
             pickup_address = request.form['location']
             gyfter_phone = request.form['phone']
-            pickup_time = request.form['time']
-            pickup_date = request.form['expiration']
+            #pickup_time = request.form['time']
+            #pickup_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
             delivery_options = request.form['delivery']
             if request.form['delivery'] == 'Can drop off':
                 deliverer = gyfter
+                dropoff_time = pickup_time
+                dropoff_date = pickup_date
+                pickup_time = ""
+                pickup_date = ""
 
         elif request.form['formtype'] == "request":
             print(request.form['formtype'])
@@ -176,13 +180,17 @@ def addticket(item='', deliverer='',
             # email = request.form['contactemail']
             dropoff_address = request.form['location']
             requester_phone = request.form['phone']
-            dropoff_time = request.form['time']
-            dropoff_date = request.form['expiration']
+            #dropoff_time = request.form['time']
+            #dropoff_date = request.form['expiration']
             comments = request.form['comments']
             ticket_type = request.form['formtype']
             pickup_options = request.form['pickup']
             if request.form['pickup'] == 'Can pick up':
                 deliverer = requester
+                pickup_time = dropoff_time
+                pickup_date = dropoff_date
+                dropoff_time = ""
+                dropoff_date = ""
 
     ticket = Ticket(item, deliverer, gyfter, pickup_address,gyfter_phone,
                     pickup_time, pickup_date,delivery_options, requester,
@@ -362,13 +370,20 @@ def all_offers():
         search_term = request.args.get('search_term')
         return render_template('all_offers.html', all_tickets=all_tickets,
                                title="Offerings", search_term=search_term)
+      
+
+# @app.route('/clients/')
+# @app.route('/clients')
+# def clients():
+#     """Client who use the Gyfted Platform."""
+#     return render_template('clients.html', title="Clients")
+
 
 @app.route("/show_all", methods=['GET', 'POST'])
 def show_all():
     """Stubbed out show and list users view."""
     all_tickets = Ticket.query.all()
-    return render_template('show_all.html', all_tickets=all_tickets,
-                           title="Tickets")
+    return render_template('show_all.html', all_tickets=all_tickets, title="Tickets")
 
 
 @app.route("/view", methods=['GET', 'POST'])
@@ -389,21 +404,87 @@ def status():
         return render_template("status_ready.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to ready
-    if ticket_status == "ready" and not(ticket_action):
+    if ticket_status == "ready" and not ticket_action: 
 
         # retrieve form data
         deliverer = request.form['deliverer']
-        dropoff_address = request.form['dropoff_address']
-        dropoff_time = request.form['dropoff_time']
-        dropoff_date = request.form['dropoff_date']
         comments = request.form['comments']
 
         # update ticket in db
         ticket.deliverer = deliverer
-        ticket.dropoff_address = dropoff_address
-        ticket.dropoff_time = dropoff_time
-        ticket.dropoff_date = dropoff_date
         ticket.comments = comments
+
+        if ticket.ticket_type == "donate" and ticket.delivery_options == "Needs picked up":
+
+            # dropoff_address = request.form['dropoff_address']
+            # dropoff_time = request.form['dropoff_time']
+            # dropoff_date = request.form['dropoff_date']
+            pickup_address = request.form['pickup_address']
+            pickup_time = request.form['pickup_time']
+            pickup_date = request.form['pickup_date']
+            
+            # update ticket in db
+            # ticket.dropoff_address = dropoff_address
+            # ticket.dropoff_time = dropoff_time
+            # ticket.dropoff_date = dropoff_date
+            ticket.pickup_address = pickup_address
+            ticket.pickup_time = pickup_time
+            ticket.pickup_date = pickup_date
+
+        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "donate" and ticket.delivery_options == "Can drop off":
+
+            # retrieve form data
+            dropoff_address = request.form['dropoff_address']
+            dropoff_time = request.form['dropoff_time']
+            dropoff_date = request.form['dropoff_date']
+            # pickup_address = request.form['pickup_address']
+            # pickup_time = request.form['pickup_time']
+            # pickup_date = request.form['pickup_date']
+
+            # update ticket in db
+            ticket.dropoff_address = dropoff_address
+            ticket.dropoff_time = dropoff_time
+            ticket.dropoff_date = dropoff_date
+            # ticket.pickup_address = pickup_address
+            # ticket.pickup_time = pickup_time
+            # ticket.pickup_date = pickup_date
+
+        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Needs delivered":
+
+            # retrieve form data
+            dropoff_address = request.form['dropoff_address']
+            dropoff_time = request.form['dropoff_time']
+            dropoff_date = request.form['dropoff_date']
+            # pickup_address = request.form['pickup_address']
+            # pickup_time = request.form['pickup_time']
+            # pickup_date = request.form['pickup_date']
+
+            # update ticket in db
+            ticket.dropoff_address = dropoff_address
+            ticket.dropoff_time = dropoff_time
+            ticket.dropoff_date = dropoff_date
+            # ticket.pickup_address = pickup_address
+            # ticket.pickup_time = pickup_time
+            # ticket.pickup_date = pickup_date
+
+        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Can pick up":
+
+            # retrieve form data
+            # dropoff_address = request.form['dropoff_address']
+            # dropoff_time = request.form['dropoff_time']
+            # dropoff_date = request.form['dropoff_date']
+            pickup_address = request.form['pickup_address']
+            pickup_time = request.form['pickup_time']
+            pickup_date = request.form['pickup_date']
+
+            # update ticket in db
+            # ticket.dropoff_address = dropoff_address
+            # ticket.dropoff_time = dropoff_time
+            # ticket.dropoff_date = dropoff_date
+            ticket.pickup_address = pickup_address
+            ticket.pickup_time = pickup_time
+            ticket.pickup_date = pickup_date
+
         ticket.status = ticket_status
         db.session.commit()
         return redirect("view?tid=" + ticket_id)

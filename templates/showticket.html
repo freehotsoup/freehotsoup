@@ -23,7 +23,7 @@
         <div class="form-group row">
             <label for="delivery_options" class="col-sm-3 col-form-label">Delivery Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="needs picked up">
+                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="{{ticket.delivery_options}}">
             </div>
         </div>
         {% else %}
@@ -36,7 +36,7 @@
         <div class="form-group row">
             <label for="pickup_options" class="col-sm-3 col-form-label">Pickup Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="needs delivered">
+                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="{{ticket.pickup_options}}">
             </div>
         </div>
         {% endif %}
@@ -61,7 +61,7 @@
         <div class="form-group row">
             <label for="item" class="col-sm-3 col-form-label">Item *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="item" name="item" readonly value="{{ticket.item}}">
+                <input class="form-control" type="text" id="item" name="item" required readonly value="{{ticket.item}}">
             </div>
         </div>
 
@@ -69,26 +69,26 @@
         <div class="form-group row">
             <label for="gyfter" class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="gyfter" name="gyfter" readonly required value="{{ticket.gyfter}}">
+                <input class="form-control" type="text" id="gyfter" name="gyfter" required readonly  value="{{ticket.gyfter}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="delivery_options" class="col-sm-3 col-form-label">Delivery Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="needs picked up">
+                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="{{ticket.delivery_options}}">
             </div>
         </div>
         {% else %}
         <div class="form-group row">
             <label for="requester" class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="requester" name="requester" readonly required value="{{ticket.requester}}">
+                <input class="form-control" type="text" id="requester" name="requester" required readonly value="{{ticket.requester}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="pickup_options" class="col-sm-3 col-form-label">Pickup Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="needs delivered">
+                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="{{ticket.pickup_options}}">
             </div>
         </div>
         {% endif %}
@@ -102,33 +102,119 @@
     </div>
 
     <div class="col-md-6">
+        {% if ticket.ticket_type == "donate" and ticket.delivery_options == "Needs picked up" %} 
+        <h2>Pickup Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" required readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="pickup_address" name="pickup_address" required readonly value="{{ticket.pickup_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_date" class="col-sm-3 col-form-label">Pickup Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="pickup_date" name="pickup_date" required readonly value="{{ticket.pickup_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_time" class="col-sm-3 col-form-label">Pickup Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="pickup_time" name="pickup_time" required readonly value="{{ticket.pickup_time}}">
+            </div>
+        </div>
+
+        {% elif ticket.ticket_type == "donate" and ticket.delivery_options == "Can drop off" %} 
         <h2>Delivery Instructions</h2>
         <br>
         <div class="form-group row">
             <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="deliverer" name="deliverer" value="{{ticket.deliverer}}">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" readonly value="{{ticket.deliverer}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="dropoff_address" class="col-sm-3 col-form-label">Address *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" value="{{ticket.dropoff_address}}">
+                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" required readonly value="{{ticket.dropoff_address}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="dropoff_date" class="col-sm-3 col-form-label">Dropoff Date *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" value="{{ticket.dropoff_date}}">
+                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" required readonly value="{{ticket.dropoff_date}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="dropoff_time" class="col-sm-3 col-form-label">Dropoff Time *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" value="{{ticket.dropoff_time}}">
+                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" required readonly value="{{ticket.dropoff_time}}">
             </div>
         </div>
-    </div>
+
+        {% elif ticket.ticket_type == "request" and ticket.pickup_options == "Needs delivered" %}
+        <h2>Delivery Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" required readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" required readonly value="{{ticket.dropoff_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_date" class="col-sm-3 col-form-label">Dropoff Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" required readonly value="{{ticket.dropoff_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_time" class="col-sm-3 col-form-label">Dropoff Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" required readonly value="{{ticket.dropoff_time}}">
+            </div>
+        </div> 
+
+        {% elif ticket.ticket_type == "request" and ticket.pickup_options == "Can pick up" %}
+        <h2>Pickup Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" readonly readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="pickup_address" name="pickup_address" required readonly value="{{ticket.pickup_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_date" class="col-sm-3 col-form-label">Pickup Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="pickup_date" name="pickup_date" required readonly value="{{ticket.pickup_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_time" class="col-sm-3 col-form-label">Pickup Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="pickup_time" name="pickup_time" required readonly value="{{ticket.pickup_time}}">
+            </div>
+        </div> 
+        {% endif %}
+   </div>
 
     <div class="col-md-12">
         <form action="/view?tid={{ ticket.tid }}&status={{ ticket.status }}&action=update" method="POST">
@@ -145,7 +231,7 @@
         <div class="form-group row">
             <label for="item" class="col-sm-3 col-form-label">Item *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="item" name="item" readonly value="{{ticket.item}}">
+                <input class="form-control" type="text" id="item" name="item" required readonly value="{{ticket.item}}">
             </div>
         </div>
 
@@ -153,26 +239,26 @@
         <div class="form-group row">
             <label for="gyfter" class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="gyfter" name="gyfter" readonly required value="{{ticket.gyfter}}">
+                <input class="form-control" type="text" id="gyfter" name="gyfter" required readonly  value="{{ticket.gyfter}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="delivery_options" class="col-sm-3 col-form-label">Delivery Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="needs picked up">
+                <input class="form-control" type="text" id="delivery_options" name="delivery_options" readonly value="{{ticket.delivery_options}}">
             </div>
         </div>
         {% else %}
         <div class="form-group row">
             <label for="requester" class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="requester" name="requester" readonly required value="{{ticket.requester}}">
+                <input class="form-control" type="text" id="requester" name="requester" required readonly value="{{ticket.requester}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="pickup_options" class="col-sm-3 col-form-label">Pickup Options</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="needs delivered">
+                <input class="form-control" type="text" id="pickup_options" name="pickup_options" readonly value="{{ticket.pickup_options}}">
             </div>
         </div>
         {% endif %}
@@ -186,6 +272,35 @@
     </div>
 
     <div class="col-md-6">
+        {% if ticket.ticket_type == "donate" and ticket.delivery_options == "Needs picked up" %} 
+        <h2>Pickup Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" required readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="pickup_address" name="pickup_address" required readonly value="{{ticket.pickup_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_date" class="col-sm-3 col-form-label">Pickup Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="pickup_date" name="pickup_date" required readonly value="{{ticket.pickup_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_time" class="col-sm-3 col-form-label">Pickup Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="pickup_time" name="pickup_time" required readonly value="{{ticket.pickup_time}}">
+            </div>
+        </div>
+
+        {% elif ticket.ticket_type == "donate" and ticket.delivery_options == "Can drop off" %} 
         <h2>Delivery Instructions</h2>
         <br>
         <div class="form-group row">
@@ -197,21 +312,78 @@
         <div class="form-group row">
             <label for="dropoff_address" class="col-sm-3 col-form-label">Address *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" readonly value="{{ticket.dropoff_address}}">
+                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" required readonly value="{{ticket.dropoff_address}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="dropoff_date" class="col-sm-3 col-form-label">Dropoff Date *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" readonly value="{{ticket.dropoff_date}}">
+                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" required readonly value="{{ticket.dropoff_date}}">
             </div>
         </div>
         <div class="form-group row">
             <label for="dropoff_time" class="col-sm-3 col-form-label">Dropoff Time *</label>
             <div class="col-sm-9">
-                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" readonly value="{{ticket.dropoff_time}}">
+                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" required readonly value="{{ticket.dropoff_time}}">
             </div>
         </div>
+
+        {% elif ticket.ticket_type == "request" and ticket.pickup_options == "Needs delivered" %}
+        <h2>Delivery Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" required readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="dropoff_address" name="dropoff_address" required readonly value="{{ticket.dropoff_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_date" class="col-sm-3 col-form-label">Dropoff Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="dropoff_date" name="dropoff_date" required readonly value="{{ticket.dropoff_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="dropoff_time" class="col-sm-3 col-form-label">Dropoff Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="dropoff_time" name="dropoff_time" required readonly value="{{ticket.dropoff_time}}">
+            </div>
+        </div> 
+
+        {% elif ticket.ticket_type == "request" and ticket.pickup_options == "Can pick up" %}
+        <h2>Pickup Instructions</h2>
+        <br>
+        <div class="form-group row">
+            <label for="deliverer" class="col-sm-3 col-form-label">Deliverer *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="deliverer" name="deliverer" readonly readonly value="{{ticket.deliverer}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_address" class="col-sm-3 col-form-label">Address *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="pickup_address" name="pickup_address" required readonly value="{{ticket.pickup_address}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_date" class="col-sm-3 col-form-label">Pickup Date *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="date" id="pickup_date" name="pickup_date" required readonly value="{{ticket.pickup_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pickup_time" class="col-sm-3 col-form-label">Pickup Time *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="time" id="pickup_time" name="pickup_time" required readonly value="{{ticket.pickup_time}}">
+            </div>
+        </div> 
+        {% endif %}
     </div>
 
     <div class="col-md-12">
