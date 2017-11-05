@@ -110,7 +110,9 @@
                     </td>
                     {% if ticket.status == "new" %}
                         <td><span class="label label-success">{{ ticket.status }}</span></td>
-                    {% elif ticket.status == "ready" %}
+                    {% elif ticket.status == "match found" %}
+                        <td><span class="label label-info">{{ ticket.status }}</span></td>
+                    {% elif ticket.status == "in-progress" %}
                         <td><span class="label label-warning">{{ ticket.status }}</span></td>
                     {% elif ticket.status == "closed" %}
                         <td><span class="label label-danger">{{ ticket.status }}</span></td>
