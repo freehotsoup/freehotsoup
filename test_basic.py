@@ -17,8 +17,8 @@ class BasicTests(unittest.TestCase):
         app.config['DEBUG'] = False
         app.config['SQLALCHEMY_DATABASE_URI'] =  'mysql+pymysql://test_db:testpassword@localhost:8889/test_db'
         self.app = app.test_client()
-        #db.drop_all()
-        #db.create_all()
+        db.drop_all()
+        db.create_all()
  
         
         self.assertEqual(app.debug, False)
@@ -61,8 +61,11 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         #expectedPath = '/view?tid=1'
         #self.assertEqual(urlparse(response.location).path, expectedPath)
-
     
+    '''def test_admin(self):
+        response = self.app.get('/admin', follow_redirects=True)
+        self.assertEqual(response.status_code, 404)
+'''    
  
 if __name__ == "__main__":
     unittest.main()
