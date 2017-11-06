@@ -1,6 +1,5 @@
 # Free Hot Soup
 
-
 ### Setup
 1. Mkdir Free Hot Soup
 2. CD into Free Hot Soup
@@ -27,33 +26,10 @@ http://postgresapp.com/
 ### Brief
 Free Hot Soup is a group that seeks to provide food to those who need it within the Portland metro area. The Free Hot app, which is coded in Python, will help the group manage food donations and requests. 
 
-
 ## FHS Mission Statement
-
 Our goal is simple: to provide food to those who need it within the Portland metro area. For some, we exist as an alternative welcoming food resource to those who choose not to be affiliated with other existing resources for a variety of personal reasons. These are the suggested guidelines to make it easier for new participants to engage in the FHS mission. Service is generally provided near 9th & SW Salmon (in the NW corner of Director Park), however; some evenings FHS may serve as a mobile unit to address emergency needs during inclement weather. This is dependent upon the availability and resources of FHS volunteers and the larger FHS network. FHS members appreciate and recognize that people do what they can.
 
-People need things.
-Others have things
-That they don’t want.
-If someone needs a coat to stay alive
-And to thrive
-To improve their situation
-And another happily offers it
-How best to connect the two?
-How do we exchange goods and services
-Peer-to-peer while preserving
-Safety, Anonymity and Integrity?
-Provide a forum and create a space.
-Should we use traditional methods
-To solve these problems?
-Only when they work best.
-They already exist
-And if they have not fulfilled the need
-We must stretch ourselves
-To accommodate the rest.
-
 ### Wireframes
-
 __Wireframe 1__<br>
 <img src="/docs/wireframes/20171004_192940.jpg" width="350" alt="wireframe1"><br>
 __Wireframe 2__<br>
