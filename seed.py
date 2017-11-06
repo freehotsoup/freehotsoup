@@ -1,13 +1,21 @@
 """Seed some data."""
 
-from models import db, Ticket
+from models import db, Ticket, Status
+
+#4 statuses
+new_status = Status(name='New')
+match_found_status = Status(name='Match Found')
+ready_status = Status(name='Ready')
+closed_status = Status(name='Closed')
+
+
 
 # full examples
 t1 = Ticket(item='13 hats assorted colors', deliverer='Bonnie', gyfter='Ashika',
             pickup_address='smith memorial union',gyfter_phone='', pickup_time='11am',
             pickup_date='11/11/17',delivery_options='Needs picked up', requester='Jason',
             dropoff_address='pioneer courthouse square', requester_phone='',dropoff_time='11pm',
-            dropoff_date='11/11/17',pickup_options='Needs delivered', comments='No comments', ticket_type='donate')
+            dropoff_date='11/11/17',pickup_options='Needs delivered', comments='No comments', ticket_type='donate' )
 
 t2 = Ticket(item='11 coats assorted colors', deliverer='Michael',
             gyfter='Jason', pickup_address='pioneer courthouse square',gyfter_phone='',
@@ -40,6 +48,8 @@ t6 = Ticket(item='a blue L mens tucker hat', deliverer='',
             pickup_time='', pickup_date='',delivery_options='', requester='Michael',
             dropoff_address='Providence Park',requester_phone='', dropoff_time='8pm',
             dropoff_date='1/11/18',pickup_options='',comments='No comments', ticket_type='donate')
+        
+
 
 db.session.add(t1)
 db.session.add(t2)
@@ -47,6 +57,11 @@ db.session.add(t3)
 db.session.add(t4)
 db.session.add(t5)
 db.session.add(t6)
+db.session.add(new_status)
+db.session.add(match_found_status)
+db.session.add(ready_status)
+db.session.add(closed_status)
+
 db.session.commit()
 tickets = Ticket.query.all()
 donated_by_jason = Ticket.query.filter_by(gyfter='Jason').first()

@@ -6,6 +6,9 @@ from datetime import datetime
 import urllib.request
 from urllib.parse import urljoin
 import json
+from sqlalchemy import Integer, ForeignKey
+from sqlalchemy.orm import relationship, backref
+
 
 
 app = Flask(__name__)
@@ -51,7 +54,9 @@ class Ticket(db.Model):
     ticket_type = db.Column(db.String(50))
     created = db.Column(db.DateTime)
     hidden = db.Column(db.Boolean)
-    status = db.Column(db.String(100))
+    status_id = db.Column(Integer, ForeignKey('status.id'))
+    status= relationship("Status")
+
     closed_details = db.Column(db.Text)
 
     def __init__(self, item, deliverer, gyfter, pickup_address,gyfter_phone,
@@ -84,12 +89,21 @@ class Ticket(db.Model):
         self.ticket_type = ticket_type
         self.created = datetime.utcnow()
         self.hidden = False
-        self.status = 'new'
+        self.status = Status.query.filter_by(name='New').first()
         self.closed_details = ''
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.status, self.comments, self.ticket_type, self.closed_details)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.comments, self.ticket_type, self.closed_details)
+
+class Status(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    def __repr__(self):
+        return self.name
+
+
 
 
 class Place(object):
