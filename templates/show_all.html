@@ -69,14 +69,21 @@
                 <th>pickup address</th>
                 <th>pickup time</th>
                 <th>pickup date</th>
+                <th>gyfter comments</th>
 
                 <th>requester</th>
                 <th>pickup options</th>
                 <th>dropoff address</th>
                 <th>dropoff time</th>
                 <th>dropoff date</th>
-                <th>comments</th>
+
+                <th>requester comments</th>
+
+                <th>closed details</th>
+
+                
                 <th>closed details</th>-->
+
             </tr>
         </thead>
 <!--         <tfoot>
@@ -110,27 +117,30 @@
                         <span>{{ticket.tid}}</span>
                       </div>
                       <!-- <form action="/map2/{{ticket.tid}}" method="POST" class='nmb'> -->
-                      <form action="/view?tid={{ticket.tid}}" method="POST" class='nmb'>
+<!--                       <form action="/view?tid={{ticket.tid}}" method="POST" class='nmb'>
                         <input type="hidden" name="tid" value="{{ticket.tid}}">
                         <input type="submit" value="show" class='btn btn-primary btn-xs'>
-                      </form>
-                      <form action="/delete_ticket" method="POST" class='nmt'>
+                      </form> -->
+<!--                       <form action="/delete_ticket" method="POST" class='nmt'>
                         <input type="hidden" name="tid" value="{{ticket.tid}}">
                         <input type="submit" value="Delete" class='btn btn-default btn-xs'>
-                      </form>
+                      </form> -->
                     </td>
+                    
                     {% if ticket.status == "new" %}
-                        <td><span class="label label-success">{{ ticket.status }}</span></td>
+
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-success">{{ ticket.status|upper }}</a></td>
                     {% elif ticket.status == "match found" %}
-                        <td><span class="label label-warning">{{ ticket.status }}</span></td>
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-info">{{ ticket.status|upper }}</a></td>
                     {% elif ticket.status == "in progress" %}
-                        <td><span class="label label-info">{{ ticket.status }}</span></td>
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-warning">{{ ticket.status|upper }}</a></td>
+                    
                     {% endif %}
 
                     <td>{{ticket.ticket_type}}</td>
                     <td>{{ticket.item}}</td>
                     
-                    {% if ticket.ticket_type == "donate" %}
+                    {% if ticket.ticket_type == "donation" %}
                         <td>{{ticket.gyfter}}</td>
                         <td>{{ticket.deliverer}}</td>
                         <td>{{ticket.pickup_address}}</td>
@@ -143,13 +153,15 @@
                     <td>{{ticket.pickup_address}}</td>
                     <td>{{ticket.pickup_time}}</td>
                     <td>{{ticket.pickup_date}}</td>
+                    <td>{{ticket.gyfter_comments}}</td>
 
                     <td>{{ticket.requester}}</td>
                     <td>{{ticket.pickup_options}}</td>
                     <td>{{ticket.dropoff_address}}</td>
                     <td>{{ticket.dropoff_time}}</td>
                     <td>{{ticket.dropoff_date}}</td>
-                    <td>{{ticket.comments}}</td>
+                    <td>{{ticket.requester_comments}}</td>
+
                     <td>{{ticket.closed_details}}</td>
 -->              </tr>
               {% endfor %}
