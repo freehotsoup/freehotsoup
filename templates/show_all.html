@@ -43,18 +43,29 @@
 {% block content %}
 
 <div class="container">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">View By
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li onclick="filter('request')"><a>Requests</a></li>
+            <li onclick="filter('donate')"><a>Donations</a></li>
+            <li onclick="filter('')"><a>All</a></li>
+        </ul>
+    </div>
     <table id="example" class="table table-responsive table-bordered table-striped">
         <thead>
             <tr class='theme_colors'>
-                <th>id</th>
-                <th>status</th>
-                <th>type</th>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Type</th>
 
-                <th>item</th>
-                <th>deliverer</th>
+                <th>Item</th>
+                
 
-                <th>gyfter</th>
-                <th>delivery options</th>
+                <th>Name</th>
+                <th>Deliverer</th>
+                <th>Address</th>
+               <!-- <th>delivery options</th>
                 <th>pickup address</th>
                 <th>pickup time</th>
                 <th>pickup date</th>
@@ -65,7 +76,7 @@
                 <th>dropoff time</th>
                 <th>dropoff date</th>
                 <th>comments</th>
-                <th>closed details</th>
+                <th>closed details</th>-->
             </tr>
         </thead>
 <!--         <tfoot>
@@ -92,7 +103,7 @@
         </tfoot> -->
         <tbody>
           {% if all_tickets %}
-              {% for ticket in all_tickets if ticket.hidden != True %}
+              {% for ticket in all_tickets if ticket.hidden != True and ticket.status != "closed"%}
                  <tr class='theme_colors'>
                     <td>
                       <div>
@@ -110,18 +121,25 @@
                     </td>
                     {% if ticket.status == "new" %}
                         <td><span class="label label-success">{{ ticket.status }}</span></td>
-                    {% elif ticket.status == "ready" %}
+                    {% elif ticket.status == "match found" %}
                         <td><span class="label label-warning">{{ ticket.status }}</span></td>
-                    {% elif ticket.status == "closed" %}
-                        <td><span class="label label-danger">{{ ticket.status }}</span></td>
+                    {% elif ticket.status == "in progress" %}
+                        <td><span class="label label-info">{{ ticket.status }}</span></td>
                     {% endif %}
 
                     <td>{{ticket.ticket_type}}</td>
                     <td>{{ticket.item}}</td>
-                    <td>{{ticket.deliverer}}</td>
-
-                    <td>{{ticket.gyfter}}</td>
-                    <td>{{ticket.delivery_options}}</td>
+                    
+                    {% if ticket.ticket_type == "donate" %}
+                        <td>{{ticket.gyfter}}</td>
+                        <td>{{ticket.deliverer}}</td>
+                        <td>{{ticket.pickup_address}}</td>
+                    {% elif ticket.ticket_type == "request" %} 
+                        <td>{{ticket.requester}}</td>
+                        <td>{{ticket.deliverer}}</td>
+                        <td></td>  
+                    {% endif %} 
+                    <!--<td>{{ticket.delivery_options}}</td>
                     <td>{{ticket.pickup_address}}</td>
                     <td>{{ticket.pickup_time}}</td>
                     <td>{{ticket.pickup_date}}</td>
@@ -133,7 +151,7 @@
                     <td>{{ticket.dropoff_date}}</td>
                     <td>{{ticket.comments}}</td>
                     <td>{{ticket.closed_details}}</td>
-                 </tr>
+-->              </tr>
               {% endfor %}
           {% endif %}
         </tbody>

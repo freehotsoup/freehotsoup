@@ -41,3 +41,26 @@ $(function(){
     });
   });
 });
+
+function filter(filter){
+  var table= document.getElementById("example");
+  //var filter = "request";
+  var tr = table.getElementsByTagName("tr");
+  var td,span;
+  if(filter !=''){
+    if(filter == 'request' || filter == 'donate'){
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML == filter) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    
+  }    
+   
+}
