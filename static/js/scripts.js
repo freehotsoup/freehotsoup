@@ -5,7 +5,7 @@ function showDonationForm() {
     document.getElementById("itemLabel").textContent="Item to donate* (required)";
     document.getElementById("pickupInput").style.display = "none";
     document.getElementById("displayForm").style.display = "block";
-    document.getElementById("formtype").value = "donate";
+    document.getElementById("formtype").value = "donation";
     //document.getElementById("datelabel").textContent="Drop Off Date";
     document.getElementById("location").required = true;
     document.getElementById("locationlabel").textContent= "Address* (required)";
@@ -41,3 +41,26 @@ $(function(){
     });
   });
 });
+
+function filter(filter){
+  var table= document.getElementById("example");
+  //var filter = "request";
+  var tr = table.getElementsByTagName("tr");
+  var td,span;
+  if(filter !=''){
+    if(filter == 'request' || filter == 'donate'){
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML == filter) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    
+  }    
+   
+}

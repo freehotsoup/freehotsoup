@@ -1,13 +1,10 @@
-# Gyfted
-(pronounced gift-ed)
-
-![Alt text](/static/images/G.jpg?raw=true "Gyfted")
+# Free Hot Soup
 
 ### Setup
-1. Mkdir Gyfted
-2. CD into Gyfted
+1. Mkdir Free Hot Soup
+2. CD into Free Hot Soup
 3. git init
-4. git remote add origin https://github.com/freehotsoup/gyfted.git
+4. git remote add origin https://github.com/freehotsoup/freehotsoup.git
 5. git pull origin master
 6. source activate flask-env
 7. Download Postgres 10, installed with default options
@@ -27,124 +24,12 @@ http://postgresapp.com/
    python seed.py
 
 ### Brief
-We connect people needing items
+Free Hot Soup is a group that seeks to provide food to those who need it within the Portland metro area. The Free Hot app, which is coded in Python, will help the group manage food donations and requests. 
 
-With those who have them
-
-And no longer need them.
-
-For instance, If you need a coat or shoes
-
-You request for them.
-
-Please include your size/measurements whenever possible.
-
-If both the item and a person are currently available
-
-Our platform may fullfill your request.
-
-Then you become gyfted.
-
-
-
-## Mission Statement
-
-People need things.
-
-Others have things
-
-That they don’t want.
-
-If someone needs a coat to stay alive
-
-And to thrive
-
-To improve their situation
-
-And another happily offers it
-
-How best to connect the two?
-
-
-How do we exchange goods and services
-
-Peer-to-peer while preserving
-
-Safety, Anonymity and Integrity?
-
-Provide a forum and create a space.
-
-Should we use traditional methods
-
-To solve these problems?
-
-Only when they work best.
-
-
-They already exist
-
-And if they have not fulfilled the need
-
-We must stretch ourselves
-
-To accommodate the rest.
-
-
-And when you receive
-
-You are Gyfted.
-
-You now possess the knowledge
-
-Someone loves you
-
-Someone cares
-
-That part of humanity
-
-That tethers us
-
-That believe that we will prevail
-
-That part should not be in shorter supply
-
-Than the demand demands.
-
-
-So I ask:
-
-Can we?
-
-Yes.
-
-Should we?
-
-Yes.
-
-Then all that is left is how.
-
-We decided to call those who participate
-
-“Requesters” and “Gyfters”
-
-Once a request has been fulfilled
-
-Requesters become “Gyfted”.
-
-Service is the message loud and clear.
-
-And I believe it will be
-
-Felt stronger by this name.
-
-One can carry with them
-
-All throughout their days
-
-That which they are Gyfted.
+## FHS Mission Statement
+Our goal is simple: to provide food to those who need it within the Portland metro area. For some, we exist as an alternative welcoming food resource to those who choose not to be affiliated with other existing resources for a variety of personal reasons. These are the suggested guidelines to make it easier for new participants to engage in the FHS mission. Service is generally provided near 9th & SW Salmon (in the NW corner of Director Park), however; some evenings FHS may serve as a mobile unit to address emergency needs during inclement weather. This is dependent upon the availability and resources of FHS volunteers and the larger FHS network. FHS members appreciate and recognize that people do what they can.
 
 ### Wireframes
-
 __Wireframe 1__<br>
 <img src="/docs/wireframes/20171004_192940.jpg" width="350" alt="wireframe1"><br>
 __Wireframe 2__<br>
