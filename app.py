@@ -391,11 +391,9 @@ def show_all():
 def status():
     """Stubbed out show and list users view."""
     ticket_id = request.args.get('tid')
+    ticket_status = request.args.get('status.name')
+
     ticket = Ticket.query.get(ticket_id)
-    ticket_status = ticket.status
-
-
-    # ticket_status = request.args.get('status')
     ticket_action = request.args.get('action')
     # print("id: ", ticket_id, "status: ", ticket_status, "action: ", ticket_action)
     ticket = Ticket.query.get(ticket_id)
