@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            {% if ticket.ticket_type == "donate" %} 
+            {% if ticket.ticket_type == "donation" %} 
             <div class="form-group row">
                 <label for="gyfter" class="col-sm-3 col-form-label">Name *</label>
                 <div class="col-sm-9">
@@ -52,7 +52,7 @@
 
         <div class="col-md-6">
 
-            {% if ticket.ticket_type == "donate" and ticket.delivery_options == "Needs picked up" %} 
+            {% if ticket.ticket_type == "donation" and ticket.delivery_options == "Needs picked up" %} 
             <h2>Pickup Instructions</h2>
             <br>
             <div class="form-group row">
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            {% elif ticket.ticket_type == "donate" and ticket.delivery_options == "Can drop off" %} 
+            {% elif ticket.ticket_type == "donation" and ticket.delivery_options == "Can drop off" %} 
             <h2>Delivery Instructions</h2>
             <br>
             <div class="form-group row">

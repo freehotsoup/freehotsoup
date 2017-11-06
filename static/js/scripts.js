@@ -5,7 +5,7 @@ function showDonationForm() {
     document.getElementById("itemLabel").textContent="Item to donate* (required)";
     document.getElementById("pickupInput").style.display = "none";
     document.getElementById("displayForm").style.display = "block";
-    document.getElementById("formtype").value = "donate";
+    document.getElementById("formtype").value = "donation";
     //document.getElementById("datelabel").textContent="Drop Off Date";
     document.getElementById("location").required = true;
     document.getElementById("locationlabel").textContent= "Address* (required)";
