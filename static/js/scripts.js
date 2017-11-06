@@ -48,7 +48,7 @@ function filter(filter){
   var tr = table.getElementsByTagName("tr");
   var td,span;
   if(filter !=''){
-    if(filter == 'request' || filter == 'donate'){
+    if(filter == 'request' || filter == 'donation'){
       for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[2];
         if (td) {
