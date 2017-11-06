@@ -43,6 +43,15 @@
 {% block content %}
 
 <div class="container">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">View By
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li onclick="filter('request')"><a>Requests</a></li>
+            <li onclick="filter('donate')"><a>Donations</a></li>
+            <li onclick="filter('')"><a>All</a></li>
+        </ul>
+    </div>
     <table id="example" class="table table-responsive table-bordered table-striped">
         <thead>
             <tr class='theme_colors'>
