@@ -96,7 +96,7 @@ class Ticket(db.Model):
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.comments, self.ticket_type, self.closed_details)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.created, self.hidden, self.gyfter_comments, self.ticket_type, self.closed_details)
 
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)

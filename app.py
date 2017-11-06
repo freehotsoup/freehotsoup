@@ -391,7 +391,11 @@ def show_all():
 def status():
     """Stubbed out show and list users view."""
     ticket_id = request.args.get('tid')
-    ticket_status = request.args.get('status')
+    ticket = Ticket.query.get(ticket_id)
+    ticket_status = ticket.status
+
+
+    # ticket_status = request.args.get('status')
     ticket_action = request.args.get('action')
     # print("id: ", ticket_id, "status: ", ticket_status, "action: ", ticket_action)
     ticket = Ticket.query.get(ticket_id)
@@ -401,11 +405,11 @@ def status():
         return render_template("showticket.html", title="View Ticket", ticket=ticket)
 
     # display potential matchfound form
-    if ticket_status == "new" and ticket_action:
+    if ticket_status.name == "New" and ticket_action:
         return render_template("status_change_matchfound.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to matchfound
-    if ticket_status == "match found" and not ticket_action: 
+    if ticket_status.name == "Match Found" and not ticket_action: 
         # retrieve form data
         if ticket.ticket_type == "donation":
             requester = request.form['requester']
@@ -441,11 +445,11 @@ def status():
         return redirect("view?tid=" + ticket_id)
 
     # display add delivery instructions form
-    if ticket_status == "new" and ticket_action:
+    if ticket_status.name == "New" and ticket_action:
         return render_template("status_change_inprogress.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to ready
-    if ticket_status == "ready" and not ticket_action: 
+    if ticket_status.name == "Ready" and not ticket_action: 
 
         # retrieve form data
         deliverer = request.form['deliverer']
@@ -472,7 +476,7 @@ def status():
             ticket.pickup_time = pickup_time
             ticket.pickup_date = pickup_date
 
-        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "donation" and ticket.delivery_options == "Can drop off":
+        elif ticket_status.name == "Ready" and not(ticket_action) and ticket.ticket_type == "donation" and ticket.delivery_options == "Can drop off":
 
             # retrieve form data
             dropoff_address = request.form['dropoff_address']
@@ -490,7 +494,7 @@ def status():
             # ticket.pickup_time = pickup_time
             # ticket.pickup_date = pickup_date
 
-        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Needs delivered":
+        elif ticket_status.name == "Ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Needs delivered":
 
             # retrieve form data
             dropoff_address = request.form['dropoff_address']
@@ -508,7 +512,7 @@ def status():
             # ticket.pickup_time = pickup_time
             # ticket.pickup_date = pickup_date
 
-        elif ticket_status == "ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Can pick up":
+        elif ticket_status.name == "Ready" and not(ticket_action) and ticket.ticket_type == "request" and ticket.pickup_options == "Can pick up":
 
             # retrieve form data
             # dropoff_address = request.form['dropoff_address']
@@ -531,11 +535,11 @@ def status():
         return redirect("view?tid=" + ticket_id)
 
     # display add delivery or pickup form
-    if ticket_status == "ready" and ticket_action:
+    if ticket_status.name == "Ready" and ticket_action:
         return render_template("status_closed.html", title="Edit Ticket", ticket=ticket)
 
     # change status from ready to closed
-    if ticket_status == "closed":
+    if ticket_status.name == "Closed":
 
         # # retrieve form data
         comments = request.form['comments']
