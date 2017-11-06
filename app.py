@@ -1,6 +1,7 @@
 """Main Free Hot Soup logic and point that is used to start the app."""
 from flask import render_template, request, redirect, Response
-from models import app, db, User, Ticket, Place
+# from models import app, db, User, Ticket, Place
+from models import app, db, User, Ticket
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib import sqla
