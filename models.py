@@ -49,6 +49,8 @@ class Ticket(db.Model):
     pickup_options =  db.Column(db.String(100))
     requester_comments =  db.Column(db.Text)
 
+    exchange_time = db.Column(db.String(100))
+    exchange_date = db.Column(db.String(100))
     ticket_type = db.Column(db.String(50))
     created = db.Column(db.DateTime)
     hidden = db.Column(db.Boolean)
@@ -57,7 +59,7 @@ class Ticket(db.Model):
 
     def __init__(self, item, deliverer, gyfter, pickup_address, gyfter_phone,
                  pickup_time, pickup_date, delivery_options, gyfter_comments, requester,
-                 dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, requester_comments, ticket_type):
+                 dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, requester_comments, exchange_time, exchange_date, ticket_type):
 
 #     def __init__(self, item = "", deliverer = "", gyfter = "", pickup_address = "", pickup_time ="",
 #                  pickup_date = "", requester = "", dropoff_address = "", dropoff_time = "",
@@ -83,6 +85,8 @@ class Ticket(db.Model):
         self.pickup_options = pickup_options
         self.requester_comments = requester_comments
 
+        self.exchange_time
+        self.exchange_date
         self.ticket_type = ticket_type
         self.created = datetime.utcnow()
         self.hidden = False
@@ -91,7 +95,7 @@ class Ticket(db.Model):
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.gyfter_comments, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.requester_comments, self.ticket_type, self.created, self.hidden, self.status, self.closed_details)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.gyfter_comments, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.requester_comments, self.exchange_time, self.exchange_date, self.ticket_type, self.created, self.hidden, self.status, self.closed_details)
 
 
 class Place(object):
