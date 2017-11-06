@@ -2,12 +2,12 @@
 {% block content %}
 <div class="container">
 
-    <form action="/view?tid={{ ticket.tid }}&status=match found" method="POST">
+    <form action="/view?tid={{ ticket.tid }}&status=update" method="POST">
 
         {% if ticket %}
         <div class="col-md-6">
 
-            <h2>{{ticket.ticket_type|title}} <span class="label label-success">{{ ticket.status.name|upper }}</span></h2>
+            <h2>{{ticket.ticket_type|title}} <span class="label label-success">{{ ticket.status|upper }}</span></h2>
             <br>
 
             {% if ticket.ticket_type == "donation" %} 
