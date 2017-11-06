@@ -540,7 +540,7 @@ def add_header(response):
 
 if __name__ == "__main__":
     admin = Admin(app, name='Gyfted', template_mode='bootstrap3')
-    admin.add_view(ModelView(User, db.session))
+    # admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ticket, db.session))
     admin.add_link(MenuLink(name='Back to Main Site', url='/'))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
