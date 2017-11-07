@@ -149,9 +149,8 @@ class AuthException(HTTPException):
 
 @app.route("/addticket", methods=['POST', 'GET'])
 def addticket(item='', deliverer='',
-              gyfter='', pickup_address='',gyfter_phone='', pickup_time='', pickup_date='',delivery_options='',gyfter_comments='',
-              requester='', dropoff_address='',requester_phone='', dropoff_time='',
-              dropoff_date='',pickup_options='',requester_comments='', exchange_time='', exchange_date='', ticket_type = ''):
+              gyfter='', pickup_address='',gyfter_phone='',delivery_options='',gyfter_comments='',
+              requester='', dropoff_address='',requester_phone='',pickup_options='',requester_comments='', exchange_time='', exchange_date='', ticket_type = ''):
     """Stubbed out map and list view."""
     if request.method == 'GET':
         return render_template('addticket.html', title="New Ticket")  # , title=title)
@@ -170,10 +169,6 @@ def addticket(item='', deliverer='',
             delivery_options = request.form['delivery']
             if request.form['delivery'] == 'Can drop off':
                 deliverer = gyfter
-                dropoff_time = pickup_time
-                dropoff_date = pickup_date
-                pickup_time = ""
-                pickup_date = ""
 
         elif request.form['formtype'] == "request":
             print(request.form['formtype'])
@@ -189,14 +184,10 @@ def addticket(item='', deliverer='',
             pickup_options = request.form['pickup']
             if request.form['pickup'] == 'Can pick up':
                 deliverer = requester
-                pickup_time = dropoff_time
-                pickup_date = dropoff_date
-                dropoff_time = ""
-                dropoff_date = ""
 
     ticket = Ticket(item, deliverer, gyfter, pickup_address,gyfter_phone,
-                    pickup_time, pickup_date,delivery_options, gyfter_comments, requester,
-                    dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, requester_comments, exchange_time, exchange_date, ticket_type)
+                    delivery_options, gyfter_comments, requester,
+                    dropoff_address,requester_phone, pickup_options, requester_comments, exchange_time, exchange_date, ticket_type)
 
     db.session.add(ticket)
     db.session.commit()
