@@ -1,13 +1,14 @@
 """Main Free Hot Soup logic and point that is used to start the app."""
 from flask import render_template, request, redirect, Response
 # from models import app, db, User, Ticket, Place
-from models import app, db, User, Ticket
+from models import app, db, User, Ticket, Status
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib import sqla
 from forms import AddressForm
 from flask_basicauth import BasicAuth
 from werkzeug.exceptions import HTTPException
+from flask.ext.admin.base import MenuLink, Admin, BaseView, expose
 
 basic_auth = BasicAuth(app)
 app.config['BASIC_AUTH_USERNAME'] = 'freehotsoup'
@@ -386,7 +387,6 @@ def show_all():
     all_tickets = Ticket.query.all()
     return render_template('show_all.html', all_tickets=all_tickets, title="Tickets")
 
-
 @app.route("/view", methods=['GET', 'POST'])
 def status():
     """Stubbed out show and list users view."""
@@ -401,11 +401,11 @@ def status():
         return render_template("showticket.html", title="View Ticket", ticket=ticket)
 
     # display potential matchfound form
-    if ticket_status == "new" and ticket_action:
+    if ticket.status.name == "New" and ticket_action:
         return render_template("status_change_matchfound.html", title="Edit Ticket", ticket=ticket)
 
     # change status from new to matchfound
-    if ticket_status == "match found" and not ticket_action: 
+    if ticket_status == "update" and not ticket_action: 
         # retrieve form data
         if ticket.ticket_type == "donation":
             requester = request.form['requester']
@@ -421,6 +421,7 @@ def status():
             delivery_options = request.form['delivery']
             gyfter_comments = request.form['response_comments']
 
+
         # update ticket in db
         if ticket.ticket_type == "donation":
             ticket.requester = requester
@@ -428,6 +429,8 @@ def status():
             ticket.pickup_address = pickup_address
             ticket.pickup_options = pickup_options
             ticket.requester_comments = requester_comments
+            ticket.status = Status.query.filter_by(name='Match Found').first()
+
 
         else:
             ticket.gyfter = gyfter
@@ -435,10 +438,13 @@ def status():
             ticket.delivery_address = delivery_address
             ticket.delivery_options = delivery_options
             ticket.gyfter_comments = gyfter_comments
+            ticket.status = Status.query.filter_by(name='Match Found').first()
 
-        ticket.status = ticket_status
+
+        ticket_status = ticket.status.name
         db.session.commit()
         return redirect("view?tid=" + ticket_id)
+
 
     # # display add delivery instructions form
     # if ticket_status == "new" and ticket_action:
@@ -463,7 +469,6 @@ def status():
     #         pickup_address = request.form['pickup_address']
     #         pickup_time = request.form['pickup_time']
     #         pickup_date = request.form['pickup_date']
-            
     #         # update ticket in db
     #         # ticket.dropoff_address = dropoff_address
     #         # ticket.dropoff_time = dropoff_time
@@ -579,9 +584,10 @@ def add_header(response):
 
 
 if __name__ == "__main__":
+    # admin.add_view(ModelView(User, db.session))
     admin = Admin(app, name='Free Hot Soup', template_mode='bootstrap3')
-    admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ticket, db.session))
+    admin.add_link(MenuLink(name='Back to Main Site', url='/'))
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)
     app.debug = True

@@ -7,7 +7,7 @@
         {% if ticket %}
         <div class="col-md-6">
 
-            <h2>{{ticket.ticket_type|title}} <span class="label label-success">{{ ticket.status|upper }}</span></h2>
+            <h2>{{ticket.ticket_type|title}} <span class="label label-success">{{ ticket.status.name|upper }}</span></h2>
             <br>
 
             {% if ticket.ticket_type == "donation" %} 

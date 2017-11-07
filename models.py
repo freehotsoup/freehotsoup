@@ -6,6 +6,9 @@ from datetime import datetime
 import urllib.request
 from urllib.parse import urljoin
 import json
+from sqlalchemy import Integer, ForeignKey
+from sqlalchemy.orm import relationship, backref
+
 
 
 app = Flask(__name__)
@@ -36,16 +39,12 @@ class Ticket(db.Model):
     gyfter = db.Column(db.String(100))
     pickup_address = db.Column(db.String(100))
     gyfter_phone = db.Column(db.String(50))
-    pickup_time = db.Column(db.String(100))
-    pickup_date = db.Column(db.String(100))
     delivery_options =  db.Column(db.String(100))
     gyfter_comments =  db.Column(db.Text)
     
     requester = db.Column(db.String(100))
     dropoff_address = db.Column(db.String(100))
     requester_phone = db.Column(db.String(50))
-    dropoff_time = db.Column(db.String(100))
-    dropoff_date = db.Column(db.String(100))
     pickup_options =  db.Column(db.String(100))
     requester_comments =  db.Column(db.Text)
 
@@ -54,12 +53,14 @@ class Ticket(db.Model):
     ticket_type = db.Column(db.String(50))
     created = db.Column(db.DateTime)
     hidden = db.Column(db.Boolean)
-    status = db.Column(db.String(100))
+    status_id = db.Column(Integer, ForeignKey('status.id'))
+    status= relationship("Status")
+
     closed_details = db.Column(db.Text)
 
     def __init__(self, item, deliverer, gyfter, pickup_address, gyfter_phone,
-                 pickup_time, pickup_date, delivery_options, gyfter_comments, requester,
-                 dropoff_address,requester_phone, dropoff_time, dropoff_date,pickup_options, requester_comments, exchange_time, exchange_date, ticket_type):
+                 delivery_options, gyfter_comments, requester,
+                 dropoff_address,requester_phone, pickup_options, requester_comments, exchange_time, exchange_date, ticket_type):
 
 #     def __init__(self, item = "", deliverer = "", gyfter = "", pickup_address = "", pickup_time ="",
 #                  pickup_date = "", requester = "", dropoff_address = "", dropoff_time = "",
@@ -72,16 +73,12 @@ class Ticket(db.Model):
         self.gyfter = gyfter
         self.pickup_address = pickup_address
         self.gyfter_phone = gyfter_phone
-        self.pickup_time = pickup_time
-        self.pickup_date = pickup_date
         self.delivery_options = delivery_options
         self.gyfter_comments = gyfter_comments
 
         self.requester = requester
         self.dropoff_address = dropoff_address
         self.requester_phone = requester_phone
-        self.dropoff_time = dropoff_time
-        self.dropoff_date = dropoff_date
         self.pickup_options = pickup_options
         self.requester_comments = requester_comments
 
@@ -90,12 +87,19 @@ class Ticket(db.Model):
         self.ticket_type = ticket_type
         self.created = datetime.utcnow()
         self.hidden = False
-        self.status = 'new'
+        self.status = Status.query.filter_by(name='New').first()
         self.closed_details = ''
 
     def __repr__(self):
         """String represenation of User showing only username and id."""
-        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.pickup_time, self.pickup_date,self.delivery_options, self.gyfter_comments, self.requester, self.dropoff_address,self.requester_phone, self.dropoff_time, self.dropoff_date,self.pickup_options, self.requester_comments, self.exchange_time, self.exchange_date, self.ticket_type, self.created, self.hidden, self.status, self.closed_details)
+        return '<Ticket %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s, %s, %s> ' % (self.tid, self.item, self.deliverer, self.gyfter, self.pickup_address,self.gyfter_phone, self.delivery_options, self.requester, self.dropoff_address,self.requester_phone, self.pickup_options, self.created, self.hidden, self.gyfter_comments, self.ticket_type, self.closed_details)
+
+class Status(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    def __repr__(self):
+        return self.name
 
 
 # class Place(object):

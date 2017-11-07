@@ -110,7 +110,7 @@
         </tfoot> -->
         <tbody>
           {% if all_tickets %}
-              {% for ticket in all_tickets if ticket.hidden != True and ticket.status != "closed"%}
+              {% for ticket in all_tickets if ticket.hidden != True and ticket.status.name != "Closed"%}
                  <tr class='theme_colors'>
                     <td>
                       <div>
@@ -127,13 +127,13 @@
                       </form> -->
                     </td>
                     
-                    {% if ticket.status == "new" %}
+                    {% if ticket.status.name == "New" %}
 
-                        <td><a href="/view?tid={{ticket.tid}}" class="label label-success">{{ ticket.status|upper }}</a></td>
-                    {% elif ticket.status == "match found" %}
-                        <td><a href="/view?tid={{ticket.tid}}" class="label label-info">{{ ticket.status|upper }}</a></td>
-                    {% elif ticket.status == "in progress" %}
-                        <td><a href="/view?tid={{ticket.tid}}" class="label label-warning">{{ ticket.status|upper }}</a></td>
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-success">{{ ticket.status.name|upper }}</a></td>
+                    {% elif ticket.status.name == "Match Found" %}
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-info">{{ ticket.status.name|upper }}</a></td>
+                    {% elif ticket.status.name == "In Progress" %}
+                        <td><a href="/view?tid={{ticket.tid}}" class="label label-warning">{{ ticket.status.name|upper }}</a></td>
                     
                     {% endif %}
 
