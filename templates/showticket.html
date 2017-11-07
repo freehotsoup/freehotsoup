@@ -180,10 +180,10 @@
     {% endif %}
 
 
-    {% if ticket and ticket.status == "in progress" %}
+    {% if ticket and ticket.status.name == "In Progress" %}
     <div class="col-md-6">
 
-        <h2>{{ticket.ticket_type|title}} <span class="label label-warning">{{ ticket.status|upper }}</span></h2>
+        <h2>{{ticket.ticket_type|title}} <span class="label label-warning">{{ ticket.status.name|upper }}</span></h2>
         <br>
 
         {% if ticket.ticket_type == "donation" %} 

@@ -5,7 +5,7 @@ from models import db, Ticket, Status
 #4 statuses
 new_status = Status(name='New')
 match_found_status = Status(name='Match Found')
-ready_status = Status(name='Ready')
+in_progress_status = Status(name='In Progress')
 closed_status = Status(name='Closed')
 
 
@@ -64,7 +64,7 @@ db.session.add(t5)
 db.session.add(t6)
 db.session.add(new_status)
 db.session.add(match_found_status)
-db.session.add(ready_status)
+db.session.add(in_progress_status)
 db.session.add(closed_status)
 
 db.session.commit()

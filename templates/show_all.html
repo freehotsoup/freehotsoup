@@ -132,7 +132,7 @@
                         <td><a href="/view?tid={{ticket.tid}}" class="label label-success">{{ ticket.status.name|upper }}</a></td>
                     {% elif ticket.status.name == "Match Found" %}
                         <td><a href="/view?tid={{ticket.tid}}" class="label label-info">{{ ticket.status.name|upper }}</a></td>
-                    {% elif ticket.status.name == "Ready" %}
+                    {% elif ticket.status.name == "In Progress" %}
                         <td><a href="/view?tid={{ticket.tid}}" class="label label-warning">{{ ticket.status.name|upper }}</a></td>
                     
                     {% endif %}

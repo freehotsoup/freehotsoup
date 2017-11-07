@@ -39,16 +39,12 @@ class Ticket(db.Model):
     gyfter = db.Column(db.String(100))
     pickup_address = db.Column(db.String(100))
     gyfter_phone = db.Column(db.String(50))
-    pickup_time = db.Column(db.String(100))
-    pickup_date = db.Column(db.String(100))
     delivery_options =  db.Column(db.String(100))
     gyfter_comments =  db.Column(db.Text)
     
     requester = db.Column(db.String(100))
     dropoff_address = db.Column(db.String(100))
     requester_phone = db.Column(db.String(50))
-    dropoff_time = db.Column(db.String(100))
-    dropoff_date = db.Column(db.String(100))
     pickup_options =  db.Column(db.String(100))
     requester_comments =  db.Column(db.Text)
 
